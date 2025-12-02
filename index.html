@@ -5,99 +5,106 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Makiramen Main Menu</title>
 
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
 <style>
     body {
         margin: 0;
-        font-family: 'Arial', sans-serif;
-        background: #fafafa;
+        font-family: 'Poppins', sans-serif;
+        background: 
+            linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+            url('https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1200') center/cover no-repeat fixed;
+        background-attachment: fixed;
     }
 
-    .header {
-        text-align: center;
-        padding: 25px 15px;
-        background: #ff4455;
-        color: white;
-        font-size: 28px;
-        font-weight: bold;
-        letter-spacing: 1px;
-    }
-
-    .menu-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        padding: 25px;
-        max-width: 1100px;
+    .container {
+        max-width: 900px;
         margin: auto;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 3rem;
+        color: #ffffff;
+        margin-top: 30px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        text-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+    }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        margin-top: 40px;
     }
 
     .menu-item {
-        background: white;
+        background: rgba(255,255,255,0.9);
         border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        transition: 0.25s ease;
+        padding: 10px;
+        transition: 0.3s;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     .menu-item:hover {
-        transform: scale(1.03);
-        box-shadow: 0 5px 18px rgba(0,0,0,0.18);
+        transform: scale(1.05);
+        box-shadow: 0 8px 18px rgba(0,0,0,0.3);
     }
 
     .menu-item img {
         width: 100%;
-        height: 260px;
+        height: 150px;
         object-fit: cover;
+        border-radius: 10px;
     }
 
-    .menu-name {
-        padding: 14px;
-        font-size: 20px;
-        font-weight: bold;
-        text-align: center;
-        background: #fff;
+    .menu-item p {
+        font-size: 1.1rem;
+        margin-top: 10px;
+        font-weight: 700;
         color: #333;
     }
 </style>
 </head>
 
 <body>
+<div class="container">
+    <h1>Makiramen Main Menu</h1>
 
-<div class="header">Makiramen Main Menu</div>
+    <div class="menu-grid">
+        <div class="menu-item">
+            <img src="BentoBox.jpg" alt="Bento Box">
+            <p>Bento Box</p>
+        </div>
 
-<div class="menu-container">
+        <div class="menu-item">
+            <img src="Katsu1.jpg" alt="Katsu 1">
+            <p>Katsu 1</p>
+        </div>
 
-    <div class="menu-item">
-        <img src="BentoBox.jpg" alt="Bento Box">
-        <div class="menu-name">Bento Box</div>
+        <div class="menu-item">
+            <img src="Katsu2.jpg" alt="Katsu 2">
+            <p>Katsu 2</p>
+        </div>
+
+        <div class="menu-item">
+            <img src="Ramen.jpg" alt="Ramen">
+            <p>Ramen</p>
+        </div>
+
+        <div class="menu-item">
+            <img src="SushiRoll.jpg" alt="Sushi Roll">
+            <p>Sushi Roll</p>
+        </div>
+
+        <div class="menu-item">
+            <img src="SushiSet.jpg" alt="Sushi Set">
+            <p>Sushi Set</p>
+        </div>
     </div>
-
-    <div class="menu-item">
-        <img src="Katsu1.jpg" alt="Katsu 1">
-        <div class="menu-name">Katsu 1</div>
-    </div>
-
-    <div class="menu-item">
-        <img src="Katsu2.jpg" alt="Katsu 2">
-        <div class="menu-name">Katsu 2</div>
-    </div>
-
-    <div class="menu-item">
-        <img src="Ramen.jpg" alt="Ramen">
-        <div class="menu-name">Ramen</div>
-    </div>
-
-    <div class="menu-item">
-        <img src="SushiRoll.jpg" alt="Sushi Roll">
-        <div class="menu-name">Sushi Roll</div>
-    </div>
-
-    <div class="menu-item">
-        <img src="SushiSet.jpg" alt="Sushi Set">
-        <div class="menu-name">Sushi Set</div>
-    </div>
-
 </div>
-
 </body>
 </html>
