@@ -39,11 +39,8 @@
     overflow: hidden;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     text-align: center;
-    transition: transform 0.2s;
-  }
-
-  .menu-item:hover {
-    transform: translateY(-3px);
+    transition: transform 0.3s;
+    cursor: pointer;
   }
 
   .menu-item img {
@@ -88,33 +85,44 @@
 <header>Makiramen Main Menu</header>
 
 <main>
-  <div class="menu-item">
+  <div class="menu-item" onclick="zoomItem(this)">
     <img src="BentoBox.jpg" alt="BentoBox">
     <p>BentoBox</p>
   </div>
-  <div class="menu-item">
+  <div class="menu-item" onclick="zoomItem(this)">
     <img src="Katsu1.jpg" alt="Katsu1">
     <p>Katsu1</p>
   </div>
-  <div class="menu-item">
+  <div class="menu-item" onclick="zoomItem(this)">
     <img src="Katsu2.jpg" alt="Katsu2">
     <p>Katsu2</p>
   </div>
-  <div class="menu-item">
+  <div class="menu-item" onclick="zoomItem(this)">
     <img src="Ramen.jpg" alt="Ramen">
     <p>Ramen</p>
   </div>
-  <div class="menu-item">
+  <div class="menu-item" onclick="zoomItem(this)">
     <img src="SushiRoll.jpg" alt="SushiRoll">
     <p>SushiRoll</p>
   </div>
-  <div class="menu-item">
+  <div class="menu-item" onclick="zoomItem(this)">
     <img src="SushiSet.jpg" alt="SushiSet">
     <p>SushiSet</p>
   </div>
 </main>
 
 <footer>© 2025 Makiramen Sushi Buffet Menu • All Rights Reserved</footer>
+
+<script>
+function zoomItem(item) {
+  // Apply zoom-in effect
+  item.style.transform = "scale(1.1)";
+  // Wait 200ms then zoom back
+  setTimeout(() => {
+    item.style.transform = "scale(1)";
+  }, 200);
+}
+</script>
 
 </body>
 </html>
