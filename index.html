@@ -1,119 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Makiramen Main Menu</title>
-  <style>
-    /* Reset & base styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Makiramen Main Menu</title>
 
+<style>
     body {
-      background: #fff7f0;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f3f3f3;
+        color: #333;
     }
 
     header {
-      text-align: center;
-      padding: 20px;
-      background: #ff6b6b;
-      color: #fff;
-      font-size: 1.8rem;
-      font-weight: bold;
+        background: #111;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 28px;
+        letter-spacing: 2px;
+        font-weight: bold;
     }
 
-    main {
-      flex: 1;
-      padding: 15px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 15px;
+    .container {
+        width: 95%;
+        max-width: 900px;
+        margin: 20px auto;
     }
 
-    .menu-item {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: transform 0.2s;
+    .menu-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        text-align: center;
     }
 
-    .menu-item:hover {
-      transform: translateY(-5px);
+    .menu-card img {
+        width: 100%;
+        display: block;
     }
 
-    .menu-item img {
-      width: 100%;
-      display: block;
-      border-bottom: 1px solid #eee;
-    }
-
-    .menu-item p {
-      padding: 10px 5px;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #333;
+    .package-label {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 10px 0;
+        text-align: center;
+        margin-bottom: 5px; /* space between label and image */
     }
 
     footer {
-      text-align: center;
-      padding: 10px;
-      background: #f2f2f2;
-      font-size: 0.85rem;
-      color: #555;
+        text-align: center;
+        padding: 30px 0;
+        color: #666;
+        font-size: 14px;
     }
-
-    @media (max-width: 480px) {
-      header {
-        font-size: 1.5rem;
-        padding: 15px;
-      }
-
-      .menu-item p {
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <header>Makiramen Main Menu</header>
 
-  <main>
-    <div class="menu-item">
-      <img src="BentoBox.jpg" alt="BentoBox">
-      <p>BentoBox</p>
-    </div>
-    <div class="menu-item">
-      <img src="Katsu1.jpg" alt="Katsu1">
-      <p>Katsu1</p>
-    </div>
-    <div class="menu-item">
-      <img src="Katsu2.jpg" alt="Katsu2">
-      <p>Katsu2</p>
-    </div>
-    <div class="menu-item">
-      <img src="Ramen.jpg" alt="Ramen">
-      <p>Ramen</p>
-    </div>
-    <div class="menu-item">
-      <img src="SushiRoll.jpg" alt="SushiRoll">
-      <p>SushiRoll</p>
-    </div>
-    <div class="menu-item">
-      <img src="SushiSet.jpg" alt="SushiSet">
-      <p>SushiSet</p>
-    </div>
-  </main>
+<header>
+    Makiramen Main Menu
+</header>
 
-  <footer>© 2025 Makiramen Sushi Buffet Menu • All Rights Reserved</footer>
+<div class="container">
+
+    
+    <div class="menu-card">
+        <div class="label"> Bento Box</div>
+        <img src="BentoBox.jpg" alt="BENTO BOX">
+    </div>
+
+
+    <div class="menu-card">
+        <div class="label"> KATSU</div>
+        <img src="Katsu1.jpg" alt="KATSU">
+    </div>
+
+
+    <div class="menu-card">
+        <div class="label"> KATSU</div>
+        <img src="Katsu2.jpg" alt="Katsu">
+    </div>
+
+    
+    <div class="menu-card">
+        <div class="label"> RAMEN</div>
+        <img src="Ramen.jpg" alt="RAMEN">
+    </div>
+
+ 
+    <div class="menu-card">
+        <div class="label">SUSHI ROLL</div>
+        <img src="SushiRoll.jpg" alt="SUSHI ROLL">
+    </div>
+
+    <div class="menu-card">
+        <div class="label">SUSHI SET</div>
+        <img src="SushiSet.jpg" alt="SUSHI SET">
+    </div>
+
+</div>
+
+<footer>
+    © 2025 Makiramen Sushi Buffet Menu • All Rights Reserved
+</footer>
+
 </body>
 </html>
