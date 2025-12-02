@@ -20,24 +20,24 @@
     padding: 15px;
     background: #ff6b6b;
     color: #fff;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: bold;
   }
 
   main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     padding: 10px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
     overflow-y: auto;
   }
 
   .menu-item {
     background: #fff;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     text-align: center;
     transition: transform 0.2s;
   }
@@ -48,34 +48,37 @@
 
   .menu-item img {
     width: 100%;
-    display: block;
-    height: 100px;
+    height: 180px;
     object-fit: cover;
+    display: block;
   }
 
   .menu-item p {
-    padding: 5px 3px;
-    font-size: 0.9rem;
+    padding: 8px 0;
+    font-size: 1.1rem;
     font-weight: 600;
     color: #333;
   }
 
   footer {
     text-align: center;
-    padding: 8px;
+    padding: 10px;
     background: #f2f2f2;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: #555;
   }
 
-  /* Small adjustments for very small phones */
-  @media (max-width: 360px) {
-    main {
-      gap: 8px;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    }
+  /* Smaller screens */
+  @media (max-width: 400px) {
     .menu-item img {
-      height: 80px;
+      height: 140px;
+    }
+    .menu-item p {
+      font-size: 1rem;
+    }
+    header {
+      font-size: 1.4rem;
+      padding: 12px;
     }
   }
 </style>
