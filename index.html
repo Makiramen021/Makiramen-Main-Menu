@@ -1,121 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Makiramen Main Menu</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-  body {
+  body{
     margin:0;
     font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     background:
       linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
       url('https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1600') center/cover no-repeat fixed;
     color:#fff;
+    overflow-x:hidden;
   }
 
-  header {
+  h1{
+    margin: 20px 0;
     text-align:center;
     font-weight:900;
-    font-size: clamp(28px, 6vw, 48px);
-    padding: 20px;
+    text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    font-size: clamp(26px, 6vw, 48px);
     letter-spacing:1px;
-    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
   }
 
-  .container {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 0 10px;
+  /* slideshow wrapper */
+  .slideshow-container{
+    position:relative;
+    max-width:100%;
+    overflow:hidden;
+    padding-bottom:20px;
   }
 
-  .menu-card {
-    background: rgba(255,255,255,0.95);
-    color: #222;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 25px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  .slides{
+    display:flex;
+    transition: transform 0.4s ease;
+    touch-action: pan-y;
   }
 
-  .menu-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  .slide{
+    min-width:80%;
+    flex-shrink:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    margin:0 10%;
   }
 
-  .menu-card img {
-    width: 100%;
-    display: block;
-    height: auto;
-    border-bottom: 1px solid #ddd;
+  .slide img{
+    width:100%;
+    border-radius:12px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
+    margin-bottom:12px;
+    object-fit:cover;
   }
 
-  .menu-label {
-    font-size: 22px;
+  .slide-title{
+    font-size: clamp(18px, 5vw, 28px);
     font-weight:700;
-    padding: 12px 0;
+    text-align:center;
+    color:#222;
+    background: #fff;
+    padding:10px 15px;
+    border-radius:12px;
+    width:90%;
+    box-shadow:0 4px 12px rgba(0,0,0,0.25);
   }
 
-  footer {
-    text-align:center;
-    padding: 25px 0;
+  /* arrows */
+  .arrow{
+    position:absolute;
+    top:50%;
+    transform: translateY(-50%);
+    font-size:40px;
     color:#fff;
-    font-size: 14px;
+    background: rgba(0,0,0,0.35);
+    border:none;
+    border-radius:50%;
+    width:50px;
+    height:50px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:10;
+  }
+
+  .arrow-left{ left:10px; }
+  .arrow-right{ right:10px; }
+
+  footer{
+    text-align:center;
+    padding:20px 0;
+    color:#fff;
+    font-size:14px;
+    background: rgba(0,0,0,0.35);
+    margin-top:20px;
   }
 
   @media (max-width:480px){
-    header{
-      font-size: 24px;
-      padding: 18px;
-    }
-    .menu-label{
-      font-size: 18px;
-      padding: 10px 0;
-    }
-    footer{
-      font-size: 13px;
-      padding: 20px 0;
-    }
+    .slide{ min-width:90%; margin:0 5%; }
+    .slide-title{ font-size:18px; padding:8px 12px; }
+    .arrow{ font-size:32px; width:42px; height:42px; }
   }
+
 </style>
 </head>
-
 <body>
 
-<header>
-  Makiramen Main Menu
-</header>
+<h1>Makiramen Main Menu</h1>
 
-<div class="container">
-  <div class="menu-card">
-    <div class="menu-label">Menu Item 1</div>
-    <img src="menu1.jpg" alt="Menu 1">
-  </div>
-
-  <div class="menu-card">
-    <div class="menu-label">Menu Item 2</div>
-    <img src="menu2.jpg" alt="Menu 2">
-  </div>
-
-  <div class="menu-card">
-    <div class="menu-label">Menu Item 3</div>
-    <img src="menu3.jpg" alt="Menu 3">
-  </div>
-
-  <div class="menu-card">
-    <div class="menu-label">Menu Item 4</div>
-    <img src="menu4.jpg" alt="Menu 4">
-  </div>
+<div class="slideshow-container">
+  <div class="slides" id="slides"></div>
+  <button class="arrow arrow-left" id="prev">‹</button>
+  <button class="arrow arrow-right" id="next">›</button>
 </div>
 
 <footer>
-  © 2025 Makiramen Sushi Buffet Menu • All Rights Reserved
+  © 2025 Makiramen Main Menu • All Rights Reserved
 </footer>
+
+<script>
+  const images = [
+    {file:'BentoBox.jpg', title:'Bento Box'},
+    {file:'Katsu1.jpg', title:'Katsu 1'},
+    {file:'Katsu2.jpg', title:'Katsu 2'},
+    {file:'Ramen.jpg', title:'Ramen'},
+    {file:'SushiRoll.jpg', title:'Sushi Roll'},
+    {file:'SushiSet.jpg', title:'Sushi Set'}
+  ];
+
+  const slidesEl = document.getElementById('slides');
+
+  images.forEach(img=>{
+    const slide = document.createElement('div');
+    slide.className = 'slide';
+    slide.innerHTML = `<img src="${img.file}" alt="${img.title}"><div class="slide-title">${img.title}</div>`;
+    slidesEl.appendChild(slide);
+  });
+
+  let currentIndex = 0;
+
+  function showSlide(index){
+    const offset = -index * 100;
+    slidesEl.style.transform = `translateX(${offset}%)`;
+  }
+
+  document.getElementById('prev').addEventListener('click', ()=>{
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showSlide(currentIndex);
+  });
+
+  document.getElementById('next').addEventListener('click', ()=>{
+    currentIndex = (currentIndex + 1) % images.length;
+    showSlide(currentIndex);
+  });
+
+  // swipe support
+  let startX=0;
+  slidesEl.addEventListener('touchstart', e=>{
+    startX = e.touches[0].clientX;
+  }, {passive:true});
+
+  slidesEl.addEventListener('touchend', e=>{
+    let endX = e.changedTouches[0].clientX;
+    let diff = endX - startX;
+    if(diff > 50) currentIndex = (currentIndex - 1 + images.length) % images.length;
+    else if(diff < -50) currentIndex = (currentIndex + 1) % images.length;
+    showSlide(currentIndex);
+  }, {passive:true});
+
+  showSlide(currentIndex);
+</script>
 
 </body>
 </html>
