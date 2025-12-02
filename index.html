@@ -1,118 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Makiramen Main Menu</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Makiramen Sushi Buffet Menu</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-  body{
-    margin:0;
-    font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background:
-      linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-      url('https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1600') center/cover no-repeat fixed;
-    color:#fff;
-    overflow-x:hidden;
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f5f5f5;
+    color: #333;
   }
 
-  h1{
+  h1 {
+    text-align: center;
     margin: 20px 0;
-    text-align:center;
-    font-weight:900;
-    text-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    font-size: clamp(26px, 6vw, 48px);
-    letter-spacing:1px;
+    font-size: clamp(24px, 6vw, 36px);
+    font-weight: 700;
+    color: #ff4455;
   }
 
-  /* slideshow wrapper */
-  .slideshow-container{
-    position:relative;
-    max-width:100%;
-    overflow:hidden;
-    padding-bottom:20px;
+  .slideshow-container {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 40px;
   }
 
-  .slides{
-    display:flex;
+  .slides {
+    display: flex;
     transition: transform 0.4s ease;
     touch-action: pan-y;
   }
 
-  .slide{
-    min-width:80%;
-    flex-shrink:0;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
-    margin:0 10%;
-  }
-
-  .slide img{
-    width:100%;
-    border-radius:12px;
-    box-shadow:0 8px 24px rgba(0,0,0,0.4);
-    margin-bottom:12px;
-    object-fit:cover;
-  }
-
-  .slide-title{
-    font-size: clamp(18px, 5vw, 28px);
-    font-weight:700;
-    text-align:center;
-    color:#222;
+  .slide {
+    min-width: 80%;
+    margin: 0 10%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: #fff;
-    padding:10px 15px;
-    border-radius:12px;
-    width:90%;
-    box-shadow:0 4px 12px rgba(0,0,0,0.25);
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .slide img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+
+  .slide-title {
+    font-size: clamp(16px, 4vw, 22px);
+    font-weight: 600;
+    text-align: center;
+    color: #333;
   }
 
   /* arrows */
-  .arrow{
-    position:absolute;
-    top:50%;
+  .arrow {
+    position: absolute;
+    top: 50%;
     transform: translateY(-50%);
-    font-size:40px;
-    color:#fff;
-    background: rgba(0,0,0,0.35);
-    border:none;
-    border-radius:50%;
-    width:50px;
-    height:50px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:10;
+    font-size: 28px;
+    background: rgba(255,255,255,0.7);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4455;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   }
 
-  .arrow-left{ left:10px; }
-  .arrow-right{ right:10px; }
+  .arrow-left { left: 10px; }
+  .arrow-right { right: 10px; }
 
-  footer{
-    text-align:center;
-    padding:20px 0;
-    color:#fff;
-    font-size:14px;
-    background: rgba(0,0,0,0.35);
-    margin-top:20px;
+  footer {
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    color: #666;
+    background: #fff;
+    border-top: 1px solid #ddd;
   }
 
   @media (max-width:480px){
-    .slide{ min-width:90%; margin:0 5%; }
-    .slide-title{ font-size:18px; padding:8px 12px; }
-    .arrow{ font-size:32px; width:42px; height:42px; }
+    .slide { min-width: 90%; margin: 0 5%; padding: 12px; }
+    .arrow { font-size: 24px; width: 36px; height: 36px; }
   }
-
 </style>
 </head>
+
 <body>
 
-<h1>Makiramen Main Menu</h1>
+<h1>Makiramen Sushi Buffet Menu</h1>
 
 <div class="slideshow-container">
   <div class="slides" id="slides"></div>
@@ -121,7 +112,7 @@
 </div>
 
 <footer>
-  © 2025 Makiramen Main Menu • All Rights Reserved
+  © 2025 Makiramen Sushi Buffet Menu • All Rights Reserved
 </footer>
 
 <script>
