@@ -15,7 +15,6 @@
         background: 
             linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
             url('https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1200') center/cover no-repeat fixed;
-        background-attachment: fixed;
     }
 
     .container {
@@ -47,6 +46,7 @@
         padding: 10px;
         transition: 0.3s;
         box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        cursor: pointer;
     }
 
     .menu-item:hover {
@@ -67,44 +67,108 @@
         font-weight: 700;
         color: #333;
     }
+
+    /* Popup Style */
+    .popup {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.85);
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .popup-content {
+        max-width: 90%;
+        max-height: 90%;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .popup-content img {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0 4px 18px rgba(255,255,255,0.2);
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        font-size: 2rem;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+        from { transform: scale(0.7); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
 </style>
 </head>
 
 <body>
+
 <div class="container">
     <h1>Makiramen Main Menu</h1>
 
     <div class="menu-grid">
-        <div class="menu-item">
-            <img src="BentoBox.jpg" alt="Bento Box">
+        <div class="menu-item" onclick="openPopup('BentoBox.jpg')">
+            <img src="BentoBox.jpg">
             <p>Bento Box</p>
         </div>
 
-        <div class="menu-item">
-            <img src="Katsu1.jpg" alt="Katsu 1">
+        <div class="menu-item" onclick="openPopup('Katsu1.jpg')">
+            <img src="Katsu1.jpg">
             <p>Katsu 1</p>
         </div>
 
-        <div class="menu-item">
-            <img src="Katsu2.jpg" alt="Katsu 2">
+        <div class="menu-item" onclick="openPopup('Katsu2.jpg')">
+            <img src="Katsu2.jpg">
             <p>Katsu 2</p>
         </div>
 
-        <div class="menu-item">
-            <img src="Ramen.jpg" alt="Ramen">
+        <div class="menu-item" onclick="openPopup('Ramen.jpg')">
+            <img src="Ramen.jpg">
             <p>Ramen</p>
         </div>
 
-        <div class="menu-item">
-            <img src="SushiRoll.jpg" alt="Sushi Roll">
+        <div class="menu-item" onclick="openPopup('SushiRoll.jpg')">
+            <img src="SushiRoll.jpg">
             <p>Sushi Roll</p>
         </div>
 
-        <div class="menu-item">
-            <img src="SushiSet.jpg" alt="Sushi Set">
+        <div class="menu-item" onclick="openPopup('SushiSet.jpg')">
+            <img src="SushiSet.jpg">
             <p>Sushi Set</p>
         </div>
     </div>
 </div>
+
+<!-- Popup Modal -->
+<div id="popup" class="popup" onclick="closePopup()">
+    <span class="close-btn">&times;</span>
+    <div class="popup-content">
+        <img id="popup-img" src="">
+    </div>
+</div>
+
+<script>
+function openPopup(imageSrc) {
+    document.getElementById("popup-img").src = imageSrc;
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
+
 </body>
 </html>
