@@ -12,7 +12,6 @@
     --accent: #ff4455;
     --glass: rgba(255,255,255,0.94);
     --overlay: rgba(0,0,0,0.55);
-    --maxWidth: 1100px;
     --gap: 18px;
   }
 
@@ -29,32 +28,39 @@
   }
 
   .wrap{
-    max-width:var(--maxWidth);
     margin: 28px auto;
     padding: 18px;
   }
 
-  /* responsive heading */
   h1{
     margin: 8px 0 18px;
     color: #fff;
     text-align:center;
     font-weight:900;
     text-shadow: 0 6px 18px rgba(0,0,0,0.45);
-    /* responsive size: min 26px, ideal 6vw, max 48px */
     font-size: clamp(26px, 6vw, 48px);
     letter-spacing:1px;
   }
 
-  /* grid */
+  /* horizontally scrollable menu */
   .menu-grid{
-    display:grid;
+    display:flex;
     gap: var(--gap);
-    /* phones 2 columns, larger screens more */
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    overflow-x:auto;
+    padding-bottom:12px;
+    scroll-behavior:smooth;
+  }
+
+  .menu-grid::-webkit-scrollbar{
+    height:8px;
+  }
+  .menu-grid::-webkit-scrollbar-thumb{
+    background:rgba(0,0,0,0.3);
+    border-radius:4px;
   }
 
   .menu-item{
+    flex:0 0 280px; /* fixed width for large cards */
     background:var(--glass);
     border-radius:12px;
     padding:10px;
@@ -65,7 +71,7 @@
     cursor:pointer;
     transition: transform .22s ease, box-shadow .22s ease;
     box-shadow: 0 6px 20px rgba(0,0,0,0.18);
-    min-height:170px;
+    min-height:350px; /* make it large */
   }
   .menu-item:active{ transform: scale(0.995) }
   .menu-item:hover{
@@ -73,12 +79,11 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.25);
   }
 
-  /* keep image aspect ratio using aspect-ratio */
   .menu-thumb{
     width:100%;
-    aspect-ratio: 4/3;
+    height:70%;
     border-radius:10px;
-    object-fit: cover;
+    object-fit:cover;
     display:block;
     flex-shrink:0;
   }
@@ -86,20 +91,17 @@
   .menu-label{
     margin-top:10px;
     font-weight:700;
-    font-size: clamp(14px, 2.6vw, 18px);
+    font-size: clamp(16px, 2.6vw, 20px);
     color:#222;
     text-align:center;
     width:100%;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
   }
 
   /* Popup modal */
   .popup{
     position:fixed;
     inset:0;
-    display:none;               /* toggled to flex when open */
+    display:none;
     justify-content:center;
     align-items:center;
     background: var(--overlay);
@@ -127,7 +129,6 @@
     display:block;
   }
 
-  /* Controls: close / prev / next */
   .close-btn, .nav-btn{
     position: absolute;
     background: rgba(0,0,0,0.45);
@@ -138,7 +139,6 @@
     border: none;
     cursor:pointer;
     backdrop-filter: blur(4px);
-    -webkit-tap-highlight-color: transparent;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -159,14 +159,6 @@
   .nav-prev{ left: 8px; }
   .nav-next{ right: 8px; }
 
-  /* hide prev/next on very small screens? keep them accessible */
-  @media (max-width:420px){
-    .menu-item{ min-height:150px }
-    .nav-btn{ padding:10px; font-size:20px }
-    .close-btn{ top:10px; right:10px; font-size:22px; padding:10px }
-  }
-
-  /* caption/footer under popup image (title & price placeholder) */
   .popup-caption{
     position:absolute;
     left:50%;
@@ -181,7 +173,6 @@
     pointer-events:none;
   }
 
-  /* prevent background scrolling when modal open */
   body.no-scroll{ overflow:hidden; height:100vh; }
 </style>
 </head>
@@ -195,20 +186,17 @@
   </div>
 </div>
 
-<!-- Popup / Focus modal -->
 <div id="popup" class="popup" aria-hidden="true" role="dialog" aria-modal="true">
   <div class="popup-inner" id="popupInner">
     <button class="nav-btn nav-prev" id="btnPrev" aria-label="Previous">‹</button>
     <img id="popupImg" class="popup-img" src="" alt="">
     <button class="nav-btn nav-next" id="btnNext" aria-label="Next">›</button>
     <button class="close-btn" id="btnClose" aria-label="Close">✕</button>
-
     <div id="popupCaption" class="popup-caption" aria-hidden="true"></div>
   </div>
 </div>
 
 <script>
-  // image data (file names must match exactly in your repo)
   const images = [
     {file:'BentoBox.jpg', title:'Bento Box'},
     {file:'Katsu1.jpg', title:'Katsu 1'},
@@ -220,7 +208,6 @@
 
   const grid = document.getElementById('menuGrid');
 
-  // build grid items
   images.forEach((it, idx)=>{
     const item = document.createElement('div');
     item.className = 'menu-item';
@@ -229,7 +216,6 @@
     item.addEventListener('click', ()=> openPopup(idx));
     item.addEventListener('keydown', (e)=> { if(e.key === 'Enter' || e.key === ' ') openPopup(idx); });
 
-    // thumb
     const img = document.createElement('img');
     img.className = 'menu-thumb';
     img.src = it.file;
@@ -244,14 +230,12 @@
     grid.appendChild(item);
   });
 
-  // popup logic
   const popup = document.getElementById('popup');
   const popupImg = document.getElementById('popupImg');
   const popupCaption = document.getElementById('popupCaption');
   const btnClose = document.getElementById('btnClose');
   const btnPrev = document.getElementById('btnPrev');
   const btnNext = document.getElementById('btnNext');
-
   let currentIndex = 0;
 
   function openPopup(index){
@@ -263,7 +247,6 @@
     popup.classList.add('open');
     popup.setAttribute('aria-hidden','false');
     document.body.classList.add('no-scroll');
-    // focus close for keyboard users
     btnClose.focus();
   }
 
@@ -271,7 +254,6 @@
     popup.classList.remove('open');
     popup.setAttribute('aria-hidden','true');
     document.body.classList.remove('no-scroll');
-    // clear src to release memory on mobile
     setTimeout(()=> popupImg.src = '', 220);
   }
 
@@ -291,43 +273,23 @@
     popupCaption.textContent = data.title;
   }
 
-  // buttons
   btnClose.addEventListener('click', closePopup);
   btnPrev.addEventListener('click', (e)=>{ e.stopPropagation(); showPrev(); });
   btnNext.addEventListener('click', (e)=>{ e.stopPropagation(); showNext(); });
 
-  // close on overlay click (but not when clicking image)
   popup.addEventListener('click', (e)=>{
     if(e.target === popup || e.target === popupInner) closePopup();
   });
 
-  // keyboard
   document.addEventListener('keydown', (e)=>{
     if(!popup.classList.contains('open')) return;
     if(e.key === 'Escape') closePopup();
     if(e.key === 'ArrowLeft') showPrev();
     if(e.key === 'ArrowRight') showNext();
   });
-
-  // touch swipe support for mobile
-  let touchStartX=0, touchEndX=0;
-  const threshold = 40; // px
-
-  popupImg.addEventListener('touchstart', (e)=>{
-    touchStartX = e.changedTouches[0].screenX;
-  }, {passive:true});
-
-  popupImg.addEventListener('touchend', (e)=>{
-    touchEndX = e.changedTouches[0].screenX;
-    const diff = touchEndX - touchStartX;
-    if(Math.abs(diff) > threshold){
-      if(diff > 0) showPrev(); else showNext();
-    }
-  }, {passive:true});
-
-  // prevent accidental drag
-  popupImg.addEventListener('dragstart', e => e.preventDefault());
 </script>
-
+<footer>
+    © 2025 Makiramen Sushi Buffet Menu • All Rights Reserved
+</footer>
 </body>
 </html>
