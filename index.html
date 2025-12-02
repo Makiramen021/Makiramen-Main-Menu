@@ -3,23 +3,38 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Makiramen Sushi Buffet Menu</title>
+<title>Makiramen Main Menu</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
+  :root{
+    --accent: #ff4455;
+    --glass: rgba(255,255,255,0.94);
+    --overlay: rgba(0,0,0,0.55);
+    --gap: 18px;
+  }
+
+  *{box-sizing:border-box}
   body{
     margin:0;
     font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     background:
       linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
       url('https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&w=1600') center/cover no-repeat fixed;
-    color:#fff;
-    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    color:#222;
+  }
+
+  .wrap{
+    margin: 28px auto;
+    padding: 18px;
   }
 
   h1{
-    margin: 20px 0;
+    margin: 8px 0 18px;
+    color: #fff;
     text-align:center;
     font-weight:900;
     text-shadow: 0 6px 18px rgba(0,0,0,0.45);
@@ -27,95 +42,159 @@
     letter-spacing:1px;
   }
 
-  /* slideshow wrapper */
-  .slideshow-container{
-    position:relative;
-    max-width:100%;
-    overflow:hidden;
-  }
-
-  .slides{
+  /* horizontally scrollable menu */
+  .menu-grid{
     display:flex;
-    transition: transform 0.4s ease;
-    touch-action: pan-y;
+    gap: var(--gap);
+    overflow-x:auto;
+    padding-bottom:12px;
+    scroll-behavior:smooth;
   }
 
-  .slide{
-    min-width:100%;
-    flex-shrink:0;
+  .menu-grid::-webkit-scrollbar{
+    height:8px;
+  }
+  .menu-grid::-webkit-scrollbar-thumb{
+    background:rgba(0,0,0,0.3);
+    border-radius:4px;
+  }
+
+  .menu-item{
+    flex:0 0 280px; /* fixed width for large cards */
+    background:var(--glass);
+    border-radius:12px;
+    padding:10px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    justify-content:center;
-    padding:20px;
-  }
-
-  .slide img{
-    width:90%;
-    max-width:500px;
-    height:auto;
-    border-radius:12px;
-    box-shadow:0 8px 24px rgba(0,0,0,0.4);
-    margin-bottom:15px;
-    object-fit:cover;
-  }
-
-  .slide-title{
-    font-size: clamp(18px, 5vw, 28px);
-    font-weight:700;
-    text-align:center;
-    color:#fff;
-    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  }
-
-  /* arrows */
-  .arrow{
-    position:absolute;
-    top:50%;
-    transform: translateY(-50%);
-    font-size:40px;
-    color:#fff;
-    background: rgba(0,0,0,0.35);
-    border:none;
-    border-radius:50%;
-    width:50px;
-    height:50px;
+    justify-content:flex-start;
     cursor:pointer;
+    transition: transform .22s ease, box-shadow .22s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+    min-height:350px; /* make it large */
+  }
+  .menu-item:active{ transform: scale(0.995) }
+  .menu-item:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+
+  .menu-thumb{
+    width:100%;
+    height:70%;
+    border-radius:10px;
+    object-fit:cover;
+    display:block;
+    flex-shrink:0;
+  }
+
+  .menu-label{
+    margin-top:10px;
+    font-weight:700;
+    font-size: clamp(16px, 2.6vw, 20px);
+    color:#222;
+    text-align:center;
+    width:100%;
+  }
+
+  /* Popup modal */
+  .popup{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background: var(--overlay);
+    z-index:9999;
+    padding:18px;
+  }
+
+  .popup.open{ display:flex; }
+
+  .popup-inner{
+    width:min(960px, 98%);
+    max-height: calc(100vh - 80px);
+    position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
-    z-index:10;
   }
 
-  .arrow-left{ left:10px; }
-  .arrow-right{ right:10px; }
+  .popup-img{
+    max-width:100%;
+    max-height:100%;
+    border-radius:12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    object-fit:contain;
+    display:block;
+  }
 
-  /* footer */
-  footer{
-    text-align:center;
-    padding:20px 0;
+  .close-btn, .nav-btn{
+    position: absolute;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-weight:700;
+    border: none;
+    cursor:pointer;
+    backdrop-filter: blur(4px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .close-btn{
+    top: 16px;
+    right: 16px;
+    font-size:20px;
+  }
+
+  .nav-btn{
+    top:50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    padding: 12px;
+  }
+  .nav-prev{ left: 8px; }
+  .nav-next{ right: 8px; }
+
+  .popup-caption{
+    position:absolute;
+    left:50%;
+    transform: translateX(-50%);
+    bottom: 12px;
     color:#fff;
-    font-size:14px;
-    background: rgba(0,0,0,0.35);
+    text-align:center;
+    font-weight:700;
+    padding:6px 12px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.45));
+    border-radius:8px;
+    pointer-events:none;
   }
 
+  body.no-scroll{ overflow:hidden; height:100vh; }
 </style>
 </head>
 <body>
 
-<h1>Makiramen Sushi Buffet Menu</h1>
+<div class="wrap">
+  <h1>Makiramen Main Menu</h1>
 
-<div class="slideshow-container">
-  <div class="slides" id="slides">
-    <!-- slides injected by JS -->
+  <div id="menuGrid" class="menu-grid">
+    <!-- JS will inject items here -->
   </div>
-  <button class="arrow arrow-left" id="prev">‹</button>
-  <button class="arrow arrow-right" id="next">›</button>
 </div>
 
-<footer>
-  © 2025 Makiramen Sushi Buffet Menu • All Rights Reserved
-</footer>
+<div id="popup" class="popup" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="popup-inner" id="popupInner">
+    <button class="nav-btn nav-prev" id="btnPrev" aria-label="Previous">‹</button>
+    <img id="popupImg" class="popup-img" src="" alt="">
+    <button class="nav-btn nav-next" id="btnNext" aria-label="Next">›</button>
+    <button class="close-btn" id="btnClose" aria-label="Close">✕</button>
+    <div id="popupCaption" class="popup-caption" aria-hidden="true"></div>
+  </div>
+</div>
 
 <script>
   const images = [
@@ -127,47 +206,87 @@
     {file:'SushiSet.jpg', title:'Sushi Set'}
   ];
 
-  const slidesEl = document.getElementById('slides');
-  images.forEach(img=>{
-    const slide = document.createElement('div');
-    slide.className = 'slide';
-    slide.innerHTML = `<img src="${img.file}" alt="${img.title}"><div class="slide-title">${img.title}</div>`;
-    slidesEl.appendChild(slide);
+  const grid = document.getElementById('menuGrid');
+
+  images.forEach((it, idx)=>{
+    const item = document.createElement('div');
+    item.className = 'menu-item';
+    item.setAttribute('role','button');
+    item.setAttribute('tabindex','0');
+    item.addEventListener('click', ()=> openPopup(idx));
+    item.addEventListener('keydown', (e)=> { if(e.key === 'Enter' || e.key === ' ') openPopup(idx); });
+
+    const img = document.createElement('img');
+    img.className = 'menu-thumb';
+    img.src = it.file;
+    img.alt = it.title;
+
+    const label = document.createElement('div');
+    label.className = 'menu-label';
+    label.textContent = it.title;
+
+    item.appendChild(img);
+    item.appendChild(label);
+    grid.appendChild(item);
   });
 
+  const popup = document.getElementById('popup');
+  const popupImg = document.getElementById('popupImg');
+  const popupCaption = document.getElementById('popupCaption');
+  const btnClose = document.getElementById('btnClose');
+  const btnPrev = document.getElementById('btnPrev');
+  const btnNext = document.getElementById('btnNext');
   let currentIndex = 0;
 
-  function showSlide(index){
-    const offset = -index * 100;
-    slidesEl.style.transform = `translateX(${offset}%)`;
+  function openPopup(index){
+    currentIndex = index;
+    const data = images[currentIndex];
+    popupImg.src = data.file;
+    popupImg.alt = data.title;
+    popupCaption.textContent = data.title;
+    popup.classList.add('open');
+    popup.setAttribute('aria-hidden','false');
+    document.body.classList.add('no-scroll');
+    btnClose.focus();
   }
 
-  document.getElementById('prev').addEventListener('click', ()=>{
+  function closePopup(){
+    popup.classList.remove('open');
+    popup.setAttribute('aria-hidden','true');
+    document.body.classList.remove('no-scroll');
+    setTimeout(()=> popupImg.src = '', 220);
+  }
+
+  function showPrev(){
     currentIndex = (currentIndex - 1 + images.length) % images.length;
-    showSlide(currentIndex);
-  });
+    const data = images[currentIndex];
+    popupImg.src = data.file;
+    popupImg.alt = data.title;
+    popupCaption.textContent = data.title;
+  }
 
-  document.getElementById('next').addEventListener('click', ()=>{
+  function showNext(){
     currentIndex = (currentIndex + 1) % images.length;
-    showSlide(currentIndex);
+    const data = images[currentIndex];
+    popupImg.src = data.file;
+    popupImg.alt = data.title;
+    popupCaption.textContent = data.title;
+  }
+
+  btnClose.addEventListener('click', closePopup);
+  btnPrev.addEventListener('click', (e)=>{ e.stopPropagation(); showPrev(); });
+  btnNext.addEventListener('click', (e)=>{ e.stopPropagation(); showNext(); });
+
+  popup.addEventListener('click', (e)=>{
+    if(e.target === popup || e.target === popupInner) closePopup();
   });
 
-  // swipe support
-  let startX=0;
-  slidesEl.addEventListener('touchstart', e=>{
-    startX = e.touches[0].clientX;
-  }, {passive:true});
-
-  slidesEl.addEventListener('touchend', e=>{
-    let endX = e.changedTouches[0].clientX;
-    let diff = endX - startX;
-    if(diff > 50) currentIndex = (currentIndex - 1 + images.length) % images.length;
-    else if(diff < -50) currentIndex = (currentIndex + 1) % images.length;
-    showSlide(currentIndex);
-  }, {passive:true});
-
-  // initialize first slide
-  showSlide(currentIndex);
+  document.addEventListener('keydown', (e)=>{
+    if(!popup.classList.contains('open')) return;
+    if(e.key === 'Escape') closePopup();
+    if(e.key === 'ArrowLeft') showPrev();
+    if(e.key === 'ArrowRight') showNext();
+  });
 </script>
 
 </body>
